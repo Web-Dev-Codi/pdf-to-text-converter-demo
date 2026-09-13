@@ -1,0 +1,25 @@
+{
+  "name": "pdf-to-text-converter-demo",
+  "description": "A simple PDF to text parser web app",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+     "dev": "concurrently -n api,web -c magenta,cyan \"pnpm --filter api dev\" \"pnpm --filter web dev\"",
+     "clean": "pnpm run -r clean",
+     "build": "pnpm run -r build",
+     "test": "pnpm -r --workspace-concurrency=1 test",
+     "typecheck": "pnpm run -r typecheck",
+     "lint": "biome check .",
+     "lint:fix": "biome check --write .",
+     "format": "biome format --write ."
+   },
+   "devDependencies": {
+     "@biomejs/biome": "2.5.13",
+     "concurrently": "^10.0.5",
+     "typescript": "~7.0.2"
+   },
+   "packageManager": "pnpm@11.20.0"
+}
