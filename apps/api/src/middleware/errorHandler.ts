@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
+import { logger } from "../config/logger.ts";
 
 function errorHandler(
   err: Error,
@@ -6,7 +7,7 @@ function errorHandler(
   res: Response,
   _next: NextFunction,
 ): void {
-  console.error(err.stack);
+  logger.error(err.stack ?? err.message);
   res.status(500).json({ error: "Internal Server Error" });
 }
 
