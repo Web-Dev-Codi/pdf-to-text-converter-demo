@@ -1,8 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import {
-  MAX_UPLOAD_SIZE_BYTES
-} from "../services/pdf-service.ts";
-
+import { MAX_UPLOAD_SIZE_BYTES } from "../services/pdf-service.ts";
 
 export function multerErrorHandler(
   err: unknown,
