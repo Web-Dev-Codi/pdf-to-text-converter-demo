@@ -4,11 +4,12 @@ import { OutputBox } from "./output-box.tsx";
 import { ParseButton } from "./parse-button.tsx";
 
 export function ParsePanel() {
-  const { fileInputRef, fileName, output, selectFile, parse, isParsing } = usePdfParse();
+  const { fileInputRef, fileName, output, selectFile, parse, isParsing } =
+    usePdfParse();
 
   return (
     <section className="w-full rounded-card bg-surface p-12 shadow-card">
-      <h1 className="mb-8 font-poster text-4xl tracking-wide text-text uppercase">
+      <h1 className="mb-8 bg-gradient-to-r from-primary to-cyan bg-clip-text font-poster text-4xl tracking-wide text-transparent uppercase [text-shadow:0_0_8px_#ff2e9740]">
         PDF to Text
       </h1>
 
@@ -18,7 +19,11 @@ export function ParsePanel() {
           fileName={fileName}
           onSelect={selectFile}
         />
-        <ParseButton onClick={parse} disabled={isParsing} />
+        <ParseButton
+          onClick={parse}
+          disabled={isParsing}
+          aria-busy={isParsing}
+        />
       </div>
       <OutputBox value={output} />
     </section>

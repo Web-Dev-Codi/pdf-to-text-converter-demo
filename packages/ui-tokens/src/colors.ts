@@ -5,20 +5,22 @@ export interface Colors {
   border: string;
   primary: string;
   "on-primary": string;
+  cyan: string;
   text: string;
   "text-muted": string;
 }
 
 export const palette = {
   dark: {
-    surface: "#1c1c1e",
-    "surface-elevated": "#2c2c2e",
-    input: "#3a3a3c",
-    border: "#48484a",
-    primary: "#f5b83d",
-    "on-primary": "#1c1c1e",
-    text: "#f2f2f7",
-    "text-muted": "#98989f",
+    surface: "#0f1220",
+    "surface-elevated": "#1a1e2e",
+    input: "#161a2a",
+    border: "#4a3a6b",
+    primary: "#ff2e97",
+    "on-primary": "#1a0b2e",
+    cyan: "#00f0ff",
+    text: "#e8e2f5",
+    "text-muted": "#9a8fb8",
   } satisfies Colors,
 } as const;
 
