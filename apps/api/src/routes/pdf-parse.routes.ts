@@ -4,6 +4,11 @@ import rateLimit from "express-rate-limit";
 import { parsePdfHandler } from "../controllers/pdf-parse.controller.ts";
 import { multerErrorHandler } from "../middleware/multerErrorHandler.ts";
 
+/**
+ * Rate limiter for the parse endpoint: 10 requests per client per 60 s.
+ * Emits standard draft-8 rate-limit headers and responds with the shared
+ * error envelope when the limit is hit.
+ */
 const parseLimiter = rateLimit({
   windowMs: 60 * 1000,
   limit: 10,
@@ -17,6 +22,7 @@ const parseLimiter = rateLimit({
   },
 });
 
+/** Router for all PDF parsing endpoints, mounted at `/api/v1/pdf`. */
 export const pdfParseRouter: ExpressRouter = Router();
 
 pdfParseRouter.post("/parse", parseLimiter, ...parsePdfHandler);
