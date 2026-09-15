@@ -14,6 +14,8 @@ const parseLimiter = rateLimit({
   limit: 10,
   standardHeaders: "draft-8",
   legacyHeaders: false,
+  /** Lets tests make unlimited parse requests against the real limiter code. */
+  skip: () => process.env.NODE_ENV === "test",
   message: {
     error: {
       code: "rate_limit_exceeded",
