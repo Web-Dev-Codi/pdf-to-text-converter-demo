@@ -1,0 +1,78 @@
+/* Tailwind v4 theme tokens — single source of truth for all UI styling.
+ * Consumed by apps via: @import "@pdf-to-text-converter-demo/ui-tokens/theme.css";
+ * Default namespaces are cleared so only token values can be used.
+ */
+@theme {
+  /* Enforce token-only usage: clear Tailwind default palettes/scales */
+  --color-*: initial;
+  --font-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+
+  /* Palette (dark) */
+  --color-surface: #0f1220;
+  --color-surface-elevated: #1a1e2e;
+  --color-input: #161a2a;
+  --color-border: #4a3a6b;
+  --color-primary: #ff2e97;
+  --color-on-primary: #1a0b2e;
+  --color-cyan: #00f0ff;
+  --color-text: #e8e2f5;
+  --color-text-muted: #9a8fb8;
+
+  /* Page background gradient stops */
+  --color-grad-void: #12101f;
+  --color-grad-haze: #2a1a4a;
+  --color-grad-ember: #6a1e8f;
+  --color-grad-rose: #d43a8e;
+
+  /* Typography */
+  --font-poster: "Anton", "Arial Narrow", sans-serif;
+  --font-marker: "Permanent Marker", "Comic Sans MS", cursive;
+  --font-body: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-micro: 0.625rem;
+  --text-micro--line-height: 1rem;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: calc(4 / 3);
+  --text-sm: 0.875rem;
+  --text-sm--line-height: calc(1.25 / 0.875);
+  --text-base: 1rem;
+  --text-base--line-height: 1.5;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-xl: 1.375rem;
+  --text-xl--line-height: calc(1.75 / 1.375);
+  --text-xxl: 1.75rem;
+  --text-xxl--line-height: calc(2 / 1.75);
+  --text-display: 3.5rem;
+  --text-display--line-height: 1;
+
+  /* Radii */
+  --radius-card: 1.25rem;
+  --radius-input: 0.5rem;
+  --radius-pill: 9999px;
+
+  /* Shadows — defined via color-mix on the palette so alpha stays token-driven */
+  --shadow-card: 0 8px 24px rgb(0 0 0 / 0.35);
+  --shadow-glow-primary: 0 0 14px
+    color-mix(in oklab, var(--color-primary) 67%, transparent);
+  --shadow-glow-primary-soft: 0 0 10px
+    color-mix(in oklab, var(--color-primary) 40%, transparent);
+  --shadow-glow-cyan: 0 0 8px
+    color-mix(in oklab, var(--color-cyan) 33%, transparent);
+
+  --text-shadow-glow-primary: 0 0 8px
+    color-mix(in oklab, var(--color-primary) 25%, transparent);
+
+  --background-image-page-gradient: linear-gradient(
+    135deg,
+    var(--color-grad-void) 0%,
+    var(--color-grad-haze) 45%,
+    var(--color-grad-ember) 75%,
+    var(--color-grad-rose) 100%
+  );
+
+  --scroll-max-output: 70vh;
+}

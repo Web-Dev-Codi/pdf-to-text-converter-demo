@@ -1,5 +1,10 @@
 {
-  "include": ["apps/*/src/**/*", "apps/*/tests/**/*", "packages/*/src/**/*", "packages/*/tests/**/*"],
+  "include": [
+    "apps/*/src/**/*",
+    "apps/*/tests/**/*",
+    "packages/*/src/**/*",
+    "packages/*/tests/**/*"
+  ],
   "exclude": ["node_modules", "**/dist", "**/node_modules"],
   "compilerOptions": {
     "target": "ES2020",
@@ -33,6 +38,6 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
-  },
+    "skipLibCheck": true
+  }
 }
