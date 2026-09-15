@@ -34,7 +34,8 @@ export type PdfApiErrorCode =
   | "payload_too_large"
   | "unsupported_media_type"
   | "pdf_parse_failed"
-  | "rate_limit_exceeded";
+  | "rate_limit_exceeded"
+  | "unknown_error";
 
 /**
  * Error payload included in a non-successful API response.

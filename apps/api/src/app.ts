@@ -2,11 +2,11 @@ import cors from "cors";
 import express, { type Express } from "express";
 import helmet from "helmet";
 import { logger } from "./config/logger.ts";
-import errorHandler from "./middleware/errorHandler.ts";
+import { errorHandler } from "./middleware/errorHandler.ts";
 import { pdfParseRouter } from "./routes/pdf-parse.routes.ts";
 
 /** The configured Express application. */
-const app = express() as Express;
+const app: Express = express();
 
 /**
  * Origins allowed by CORS, from the `CORS_ORIGINS` env var (comma-separated).

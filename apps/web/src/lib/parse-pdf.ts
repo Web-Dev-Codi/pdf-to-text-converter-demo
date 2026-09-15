@@ -1,6 +1,7 @@
 import type {
   ParseApiResponse,
   ParsedPage,
+  PdfApiErrorCode,
   PdfParseResult,
 } from "@pdf-to-text-converter-demo/shared-types";
 
@@ -11,9 +12,9 @@ export const DEFAULT_API_URL = envApiUrl ?? "http://localhost:3000";
 
 export class PdfApiError extends Error {
   /** Machine-readable error code from the API's shared error envelope. */
-  readonly code: string;
+  readonly code: PdfApiErrorCode;
 
-  constructor(code: string, message: string) {
+  constructor(code: PdfApiErrorCode, message: string) {
     super(message);
     this.name = "PdfApiError";
     this.code = code;

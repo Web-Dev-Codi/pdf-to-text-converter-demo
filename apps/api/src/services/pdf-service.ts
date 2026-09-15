@@ -12,9 +12,13 @@ export const MAX_UPLOAD_SIZE_BYTES = 10 * 1024 * 1024;
  * into the API error envelope).
  */
 export class PdfValidationError extends Error {
-  constructor(message: string) {
+  /** True when the failure is specifically about the file size limit. */
+  readonly isSize: boolean;
+
+  constructor(message: string, isSize = false) {
     super(message);
     this.name = "PdfValidationError";
+    this.isSize = isSize;
   }
 }
 

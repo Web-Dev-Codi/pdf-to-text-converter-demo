@@ -65,11 +65,10 @@ function parseRequest(req: Request, res: Response, next: NextFunction): void {
     validatePdfUpload(file.buffer);
   } catch (error) {
     if (error instanceof PdfValidationError) {
-      const isSize = error.message.includes("exceeds");
       sendError(
         res,
-        isSize ? 413 : 415,
-        isSize ? "payload_too_large" : "unsupported_media_type",
+        error.isSize ? 413 : 415,
+        error.isSize ? "payload_too_large" : "unsupported_media_type",
         error.message,
       );
       return;
@@ -142,13 +141,12 @@ async function parsePdf(
  * the result staged by `parsePdf`.
  */
 function respond(req: ParsedRequest, res: Response): void {
-  res.status(200).json({
-    data: {
-      fileName: req.parsedResult?.fileName,
-      totalPages: req.parsedResult?.totalPages,
-      pages: req.parsedResult?.pages,
-    },
-  });
+  if (!req.parsedResult) {
+    sendError(res, 500, "unknown_error", "Internal Server Error");
+    return;
+  }
+  const { fileName, totalPages, text, pages } = req.parsedResult;
+  res.status(200).json({ data: { fileName, totalPages, text, pages } });
 }
 
 /** The full POST /parse middleware chain: upload → validate → parse → respond. */

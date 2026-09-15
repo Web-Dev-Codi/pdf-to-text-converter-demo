@@ -1,7 +1,7 @@
-import { gradientPalette, palette } from "./colors";
-import { radii } from "./radii";
-import { shadows, textShadows } from "./shadows";
-import { fontFamily, fontSize } from "./typography";
+import { gradientPalette, palette } from "./colors.ts";
+import { radii } from "./radii.ts";
+import { shadows, textShadows } from "./shadows.ts";
+import { fontFamily, fontSize } from "./typography.ts";
 
 export const theme = {
   color: { ...palette.dark, ...gradientPalette.dark },

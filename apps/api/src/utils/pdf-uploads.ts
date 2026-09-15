@@ -21,7 +21,7 @@ export function validatePdfUpload(buffer: Buffer): void {
     throw new PdfValidationError("Uploaded file is empty.");
   }
   if (buffer.length > MAX_UPLOAD_SIZE_BYTES) {
-    throw new PdfValidationError(`Uploaded file exceeds 10MB limit.`);
+    throw new PdfValidationError("Uploaded file exceeds 10MB limit.", true);
   }
   const hasMagic =
     buffer.subarray(0, PDF_MAGIC.length).toString("ascii") === PDF_MAGIC;

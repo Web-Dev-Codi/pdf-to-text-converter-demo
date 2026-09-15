@@ -1,8 +1,7 @@
 {
   "name": "api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.ts",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/src/app.js",
@@ -11,9 +10,6 @@
     "test:watch": "vitest",
     "typecheck": "tsc -p tsconfig.json"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "type": "module",
   "dependencies": {
     "@pdf-to-text-converter-demo/shared-types": "workspace:*",

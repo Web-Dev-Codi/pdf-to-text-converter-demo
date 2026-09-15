@@ -9,14 +9,17 @@ import { logger } from "../config/logger.ts";
  *
  * @param err - The error that triggered the handler.
  */
-function errorHandler(
+export function errorHandler(
   err: Error,
   _req: Request,
   res: Response,
   _next: NextFunction,
 ): void {
   logger.error(err.stack ?? err.message);
-  res.status(500).json({ error: "Internal Server Error" });
+  res.status(500).json({
+    error: {
+      code: "unknown_error",
+      message: "Internal Server Error",
+    },
+  });
 }
-
-export default errorHandler;
