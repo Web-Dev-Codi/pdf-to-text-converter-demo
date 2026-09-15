@@ -2,6 +2,7 @@ export const fontFamily = {
   poster: '"Anton", "Arial Narrow", sans-serif',
   marker: '"Permanent Marker", "Comic Sans MS", cursive',
   body: '"Space Grotesk", ui-sans-serif, system-ui, sans-serif',
+  mono: '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace',
 } as const;
 
 export const fontSize = {

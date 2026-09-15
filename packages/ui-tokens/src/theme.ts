@@ -1,9 +1,10 @@
-import { type PaletteName, palette } from "./colors";
+import { gradientPalette, palette } from "./colors";
 import { radii } from "./radii";
+import { shadows, textShadows } from "./shadows";
 import { fontFamily, fontSize } from "./typography";
 
 export const theme = {
-  color: palette.dark,
+  color: { ...palette.dark, ...gradientPalette.dark },
   borderRadius: {
     card: radii.xl,
     input: radii.md,
@@ -11,7 +12,8 @@ export const theme = {
   },
   fontFamily,
   fontSize,
+  shadows,
+  textShadows,
 } as const;
 
 export type Theme = typeof theme;
-export type { PaletteName };

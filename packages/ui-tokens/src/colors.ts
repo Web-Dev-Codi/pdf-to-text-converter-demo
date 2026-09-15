@@ -10,6 +10,13 @@ export interface Colors {
   "text-muted": string;
 }
 
+export interface GradientColors {
+  "grad-void": string;
+  "grad-haze": string;
+  "grad-ember": string;
+  "grad-rose": string;
+}
+
 export const palette = {
   dark: {
     surface: "#0f1220",
@@ -22,6 +29,15 @@ export const palette = {
     text: "#e8e2f5",
     "text-muted": "#9a8fb8",
   } satisfies Colors,
+} as const;
+
+export const gradientPalette = {
+  dark: {
+    "grad-void": "#12101f",
+    "grad-haze": "#2a1a4a",
+    "grad-ember": "#6a1e8f",
+    "grad-rose": "#d43a8e",
+  } satisfies GradientColors,
 } as const;
 
 export type PaletteName = keyof typeof palette;

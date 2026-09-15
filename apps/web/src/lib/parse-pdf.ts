@@ -1,28 +1,16 @@
-export interface ParsedPage {
-  pageNumber: number;
-  text: string;
-}
+import type {
+  ParseApiResponse,
+  ParsedPage,
+  PdfParseResult,
+} from "@pdf-to-text-converter-demo/shared-types";
 
-export interface PdfParseResult {
-  fileName: string;
-  totalPages: number;
-  pages: ParsedPage[];
-}
-
-interface ParseApiError {
-  code: string;
-  message: string;
-}
-
-interface ParseApiResponse {
-  data?: PdfParseResult;
-  error?: ParseApiError;
-}
+export type { ParsedPage, PdfParseResult };
 
 const envApiUrl = import.meta.env.VITE_API_URL;
 export const DEFAULT_API_URL = envApiUrl ?? "http://localhost:3000";
 
 export class PdfApiError extends Error {
+  /** Machine-readable error code from the API's shared error envelope. */
   readonly code: string;
 
   constructor(code: string, message: string) {

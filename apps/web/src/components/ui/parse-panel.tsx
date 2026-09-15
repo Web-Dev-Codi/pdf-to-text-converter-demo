@@ -9,7 +9,7 @@ export function ParsePanel() {
 
   return (
     <section className="w-full rounded-card bg-surface p-12 shadow-card">
-      <h1 className="mb-8 bg-gradient-to-r from-primary to-cyan bg-clip-text font-poster text-4xl tracking-wide text-transparent uppercase [text-shadow:0_0_8px_#ff2e9740]">
+      <h1 className="mb-8 bg-gradient-to-r from-primary to-cyan bg-clip-text font-poster text-display tracking-wide text-transparent uppercase text-shadow-glow-primary">
         PDF to Text
       </h1>
 

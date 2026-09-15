@@ -1,32 +1,64 @@
+import type {
+  ParseApiError,
+  PdfApiErrorCode,
+  PdfParseResult,
+} from "@pdf-to-text-converter-demo/shared-types";
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 import multer from "multer";
 import { logger } from "../config/logger.ts";
 import {
   extractPdfText,
   MAX_UPLOAD_SIZE_BYTES,
-  type PdfParseResult,
   PdfValidationError,
 } from "../services/pdf-service.ts";
 import { validatePdfUpload } from "../utils/pdf-uploads.ts";
 
+/** Multer instance buffering the single `file` field in memory. */
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: MAX_UPLOAD_SIZE_BYTES, files: 1 },
 });
 
+/**
+ * Request augmented by `parsePdf` with the parse result, so the later
+ * `respond` handler can serialize it without re-reading the file.
+ */
 interface ParsedRequest extends Request {
   parsedResult?: PdfParseResult;
 }
 
+/**
+ * Sends a JSON error response in the shared `{ error: { code, message } }`
+ * envelope.
+ *
+ * @param res - Express response to write to.
+ * @param status - HTTP status code for the error.
+ * @param code - Machine-readable error code from the shared contract.
+ * @param message - Human-readable error message.
+ */
+function sendError(
+  res: Response,
+  status: number,
+  code: PdfApiErrorCode,
+  message: string,
+): void {
+  const error: ParseApiError = { code, message };
+  res.status(status).json({ error });
+}
+
+/**
+ * Stage 1 — rejects the request when no file was attached or the file fails
+ * upload validation (size/magic bytes). Chains to `parsePdf` on success.
+ */
 function parseRequest(req: Request, res: Response, next: NextFunction): void {
   const file = req.file;
   if (!file) {
-    res.status(400).json({
-      error: {
-        code: "invalid_request",
-        message: "No file uploaded. Attach a PDF file in the 'file' field.",
-      },
-    });
+    sendError(
+      res,
+      400,
+      "invalid_request",
+      "No file uploaded. Attach a PDF file in the 'file' field.",
+    );
     return;
   }
   try {
@@ -34,12 +66,12 @@ function parseRequest(req: Request, res: Response, next: NextFunction): void {
   } catch (error) {
     if (error instanceof PdfValidationError) {
       const isSize = error.message.includes("exceeds");
-      res.status(isSize ? 413 : 415).json({
-        error: {
-          code: isSize ? "payload_too_large" : "unsupported_media_type",
-          message: error.message,
-        },
-      });
+      sendError(
+        res,
+        isSize ? 413 : 415,
+        isSize ? "payload_too_large" : "unsupported_media_type",
+        error.message,
+      );
       return;
     }
     next(error);
@@ -48,6 +80,11 @@ function parseRequest(req: Request, res: Response, next: NextFunction): void {
   next();
 }
 
+/**
+ * Stage 2 — extracts text from the uploaded PDF, logs timing/metadata, and
+ * stores the result on the request for `respond`. Maps parse failures to a
+ * 422 with the shared error envelope.
+ */
 async function parsePdf(
   req: ParsedRequest,
   res: Response,
@@ -55,12 +92,12 @@ async function parsePdf(
 ): Promise<void> {
   const file = req.file;
   if (!file) {
-    res.status(400).json({
-      error: {
-        code: "invalid_request",
-        message: "No file uploaded. Attach a PDF file in the 'file' field.",
-      },
-    });
+    sendError(
+      res,
+      400,
+      "invalid_request",
+      "No file uploaded. Attach a PDF file in the 'file' field.",
+    );
     return;
   }
 
@@ -91,16 +128,19 @@ async function parsePdf(
       },
       "pdf parse failed",
     );
-    res.status(422).json({
-      error: {
-        code: "pdf_parse_failed",
-        message:
-          "The PDF file could not be parsed. It may be corrupted or use unsupported features.",
-      },
-    });
+    sendError(
+      res,
+      422,
+      "pdf_parse_failed",
+      "The PDF file could not be parsed. It may be corrupted or use unsupported features.",
+    );
   }
 }
 
+/**
+ * Stage 3 — writes the successful `{ data: PdfParseResult }` response using
+ * the result staged by `parsePdf`.
+ */
 function respond(req: ParsedRequest, res: Response): void {
   res.status(200).json({
     data: {
@@ -111,6 +151,7 @@ function respond(req: ParsedRequest, res: Response): void {
   });
 }
 
+/** The full POST /parse middleware chain: upload → validate → parse → respond. */
 export const parsePdfHandler: RequestHandler[] = [
   upload.single("file"),
   parseRequest,
