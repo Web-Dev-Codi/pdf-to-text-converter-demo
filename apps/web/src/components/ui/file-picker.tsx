@@ -24,7 +24,7 @@ export function FilePicker({ inputRef, fileName, onSelect }: FilePickerProps) {
       <span className="rounded-pill border border-primary bg-surface-elevated px-3 py-1 text-sm font-semibold text-primary transition duration-200 group-hover:shadow-glow-primary-soft group-hover:brightness-125 group-focus-within:shadow-glow-primary-soft group-focus-within:brightness-125">
         Browse...
       </span>
-      <span className={hasFile ? "text-text" : "text-text-muted"}>
+      <span className={hasFile ? "truncate text-text" : "text-text-muted"}>
         {fileName ?? NO_FILE_TEXT}
       </span>
     </label>

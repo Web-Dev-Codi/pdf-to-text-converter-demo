@@ -8,12 +8,12 @@ export function ParsePanel() {
     usePdfParse();
 
   return (
-    <section className="w-full rounded-card bg-surface p-12 shadow-card">
-      <h1 className="mb-8 bg-gradient-to-r from-primary to-cyan bg-clip-text font-poster text-display tracking-wide text-transparent uppercase text-shadow-glow-primary">
+    <section className="w-full rounded-card bg-surface p-6 shadow-card sm:p-12">
+      <h1 className="mb-4 bg-gradient-to-r from-primary to-cyan bg-clip-text font-poster text-xxl tracking-wide text-transparent uppercase text-shadow-glow-primary sm:mb-8 sm:text-display">
         PDF to Text
       </h1>
 
-      <div className="mb-8 flex items-center gap-4">
+      <div className="mb-4 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center">
         <FilePicker
           inputRef={fileInputRef}
           fileName={fileName}
