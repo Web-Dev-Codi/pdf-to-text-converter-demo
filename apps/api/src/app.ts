@@ -10,9 +10,11 @@ const app = express() as Express;
 
 /**
  * Origins allowed by CORS, from the `CORS_ORIGINS` env var (comma-separated).
- * Defaults to the Vite dev server origin.
+ * Defaults to the Vite dev server (5173) and production preview (4173) origins.
  */
-const allowedOrigins = (process.env.CORS_ORIGINS ?? "http://localhost:5173")
+const allowedOrigins = (
+  process.env.CORS_ORIGINS ?? "http://localhost:5173,http://localhost:4173"
+)
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);

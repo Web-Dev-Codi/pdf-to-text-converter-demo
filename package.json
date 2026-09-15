@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev": "concurrently -n api,web -c magenta,cyan \"pnpm --filter api dev\" \"pnpm --filter web dev\"",
+    "preview": "pnpm --filter api build && concurrently -n api,web -c magenta,cyan \"pnpm --filter api start\" \"pnpm --filter web preview\"",
     "clean": "pnpm run -r clean",
     "build": "pnpm run -r build",
     "test": "pnpm -r --workspace-concurrency=1 test",
